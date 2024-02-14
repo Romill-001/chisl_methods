@@ -6,7 +6,7 @@
 using namespace std;
 
 namespace constans {
-const int steps = 1024;
+const int STEPS = 1024;
 const double LEFT_BORDER = 0;
 const double EPSILON = 1e-6;
 const double E = 2.71828182846;
@@ -98,7 +98,7 @@ void CalculateFunc(vector<double> points,
       diff = fabs(function(func, constans::LEFT_BORDER, point, i) -
                   function(func, constans::LEFT_BORDER, point, 2 * i));
       i++;
-    } while (diff >= constans::EPSILON && i <= constans::steps);
+    } while (diff >= constans::EPSILON && i <= constans::STEPS);
     double difference = fabs(McLorenFunc(point, 10) -
                              function(func, constans::LEFT_BORDER, point, i));
     printf(
