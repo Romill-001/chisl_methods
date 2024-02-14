@@ -88,7 +88,9 @@ double SypmsonsFormula(double (*func)(double), const double &a, double b,
   return result;
 }
 
-void CalculateFunc(vector<double> points, double (*function)(double (*func)(double), const double&, double, int)) {
+void CalculateFunc(vector<double> points,
+                   double (*function)(double (*func)(double), const double &,
+                                      double, int)) {
   for (auto point : points) {
     int i = 1;
     double diff = 0.0;
@@ -97,17 +99,30 @@ void CalculateFunc(vector<double> points, double (*function)(double (*func)(doub
                   function(func, constans::LEFT_BORDER, point, 2 * i));
       i++;
     } while (diff >= constans::EPSILON && i <= constans::steps);
+    double difference = fabs(McLorenFunc(point, 10) -
+                             function(func, constans::LEFT_BORDER, point, i));
     printf(
         "x_i = %.1lf | J_o = %.6lf | J_n = %.6lf | |J_o - J_n| = %.6lf | N "
         "= %d\n",
         point, McLorenFunc(point, 10),
-        function(func, constans::LEFT_BORDER, point, i), diff, i);
+        function(func, constans::LEFT_BORDER, point, i), difference, i);
   }
 }
+
+void GaussFunction(vector<double> points) {
+  for (auto point : points) {
+    double diff = fabs(McLorenFunc(point, 10) - erf(point));
+    printf(
+        "x_i = %.1lf | J_o = %.6lf | J_n = %.6lf | |J_o - J_n| = %.6lf | N "
+        "= %d\n",
+        point, McLorenFunc(point, 10), erf(point), diff, 1024);
+  }
+}
+
 int main() {
   vector<double> points = {0.0, 0.2, 0.4, 0.6, 0.8, 1.0,
                            1.2, 1.4, 1.6, 1.8, 2.0};
-  cout << "Правые прямоугольники\n"; 
+  cout << "Правые прямоугольники\n";
   CalculateFunc(points, rightRectangles);
   cout << "Левые прямоугольники\n";
   CalculateFunc(points, leftRectangles);
@@ -117,5 +132,7 @@ int main() {
   CalculateFunc(points, trapezeFormula);
   cout << "Симпсон\n";
   CalculateFunc(points, SypmsonsFormula);
+  cout << "Гаус\n";
+  GaussFunction(points);
   return 0;
 }
