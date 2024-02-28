@@ -76,14 +76,14 @@ double trapezeFormula(double (*func)(double), const double &a, double b,
 double SypmsonsFormula(double (*func)(double), const double &a, double b,
                        int steps) {
   double h = (b - a) / steps;
-    double sum = 0;
+    double result = 0;
     double x = 0;
     for (int i = 0; i < steps; i++)
     {
         sum += (func(x) + 4 * func(x + h / 2) + func(x + h)) * h / 6;
         x += h;
     }
-    return sum;
+    return result;
 }
 
 double GaussFormula(double (*func)(double), const double &a, double b,
@@ -91,14 +91,14 @@ double GaussFormula(double (*func)(double), const double &a, double b,
     double h = (b - a) / steps;
     double ad1 = (1 - 1.0 / sqrt(3)) * h / 2;
     double ad2 = (1 + 1.0 / sqrt(3)) * h / 2;
-    double sum = 0;
+    double result = 0;
     double x = 0;
     for (int i = 0; i < steps; i++)
     {
         sum += (func(x + ad1) + func(x + ad2)) * h / 2;
         x += h;
     }
-    return sum;
+    return result;
 }
 
 void CalculateFunc(vector<double> points,
