@@ -1,0 +1,170 @@
+\documentclass[14pt]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian,english]{babel}
+\usepackage{amsmath}
+\usepackage{cmap}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+\begin{document}
+ 
+\begin{center}
+\hfill \break
+\textbf{\normalsize{Министерство науки и высшего образования Российской Федерации\\
+Федеральное государственное автономное образовательное\\
+учреждение высшего образования}}
+\\
+\normalsize{\textbf{«КАЗАНСКИЙ (ПРИВОЛЖСКИЙ) ФЕДЕРАЛЬНЫЙ УНИВЕРСИТЕТ»}}\\
+\hfill \break
+\normalsize{ИНСТИТУТ ВЫЧИСЛИТЕЛЬНОЙ МАТЕМАТИКИ\\ И ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ}\\
+ \hfill \break
+\normalsize{Кафедра прикладной математики}\\
+\hfill\break
+\hfill \break
+\normalsize{Направление подготовки: 01.03.04 – Прикладная математика}\\
+\hfill \break
+\hfill \break
+\textbf{ОТЧЁТ}\\
+\normalsize{По дисциплине <<Численные методы>>}\\
+\normalsize{на тему:}\\
+\normalsize{<<Вычисление интеграла с помощью квадратурных формул>>}\\
+\hfill \break
+\hfill \break
+\end{center}
+
+\hfill \break
+\textbf{Выполнил:}\\Романов И.И. 09-222 группа.
+\hfill \break
+\hfill \break
+\textbf{Руководитель:}\\Глазырина О.В.
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\begin{center} Казань 2024 \end{center}
+\thispagestyle{empty}
+ 
+
+\newpage
+\begin{center}
+\renewcommand{\contentsname}{Содержание}
+\tableofcontents
+\newpage
+\end{center}
+\newpage
+\section{Постановка задачи}
+\hspace{5mm}Необходимо изучить и сравнить различные способы приближённого вычисления функции ошибок
+\begin{center}
+    $\text{erf}(x) =\displaystyle\frac{2}{\sqrt{\pi}} \displaystyle\int\limits_{0}^{x} e^{-t^2} dt$
+\end{center}
+\begin{enumerate}
+    \item Протабулировать erf(x) на отрезке [a,b] с шагом h и точностью $ \varepsilon$, основываясь на ряде Тейлора,\\
+     предварительно вычислив его
+     \begin{center}
+        $\text{erf}(x) =\displaystyle\frac{2}{\sqrt{\pi}} \displaystyle\sum\limits_{n=1}^{\infty}(-1)^n\displaystyle\frac{x^{2n+1}}{n!(2n+1)} $
+    \end{center}
+    где a = 0, b = 2, h = 0.2, $\varepsilon = 10^{-6}$. Получив таким образом таблицу из 11 точек
+    \begin{tabbing}
+        $x_0$ \= $x_1$ \= $x_2$ \= \dots\\
+        $f_0$ \> $f_1$ \> $f_2$ \> \dots\\
+    \end{tabbing}
+    $f_i = \text{erf}(x_i)$, $x_i = a + i \cdot h$, $i = 0,\dots,n.$
+    \item {Вычислить erf(x) при помощи пяти составных квадратурных формул:
+        \begin{enumerate}
+            \item {
+                Формула Правых прямоугольников:
+                \begin{center}
+                    $J_N(x) = \displaystyle\sum_{i=2}^{n+1}h \cdot g(x_i)$, $h=(x_{i+1} - x_i)$
+                \end{center}
+                }
+            \item {
+                Формула Центральных прямоугольников:
+                \begin{center}
+                    $J_N(x) = \displaystyle\sum_{i=1}^{n}h \cdot g\left(\displaystyle\frac{x_i + x_{i+1}}{2}\right)$  
+                \end{center}
+                }
+            \item {
+                Формула трапеции:
+                \begin{center}
+                    $J_N(x) = \displaystyle\sum_{i=1}^{n}h \cdot \displaystyle\frac{g(x_i)+g(x_{i+1})}{2}$
+                \end{center}
+                }
+            \item {
+                Формула Симпсона:
+                \begin{center}
+                    $J_N(x) = \displaystyle\sum_{i=1}^{n}\displaystyle\frac{h}{6} \cdot \left[g(x_i)+4g\left(
+                        \displaystyle\frac{x_i + x_{i+1}}{2}
+                    \right) + g(x_{i+1}) \right]$
+                \end{center}
+                }
+            \item {
+                Формула Гаусса:
+                \begin{center}
+                    $J_N(x) = \displaystyle\sum_{i=1}^{n}\displaystyle\frac{h}{2} \cdot \left[g\left(
+                        x_i + \displaystyle\frac{h}{2}\left(1 - \displaystyle\frac{1}{\sqrt{3}} \right)
+                    \right) +
+                    g\left(
+                        x_i + \displaystyle\frac{h}{2}\left(1 + \displaystyle\frac{1}{\sqrt{3}} \right)
+                    \right)
+                    \right]$
+                \end{center}
+                }
+        \end{enumerate}
+    }
+\end{enumerate}
+
+Вычисления проводятся от начала интегрирования до каждой из 11 точек, увеличивая количество разбиений между точками в 2 раза до тех пор, пока погрешность больше $\varepsilon$.
+\newpage
+\section{Ход работы}
+Выберем точки на отрезке [a,b] с шагом h.
+\begin{center}
+    $x_i = a + i \cdot h$.
+\end{center}
+Для каждой точки $x_i$ найдём значение $f(x_i)$ и составим таблицу результатов (Таблица 1).
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        $x_i$ & $f(x_i)$\\
+        \hline
+        0,0 & 0,0\\
+        \hline
+    \end{tabular}
+    \caption*{Таблица 1 - точки $x_i$ и значения ряда Тейлора $f(x_i)$}
+\end{table}
+\newpage
+\section{Выводы}
+
+\newpage
+\section{Листинг программы}
+
+
+\end{document}
