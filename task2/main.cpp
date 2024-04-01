@@ -12,12 +12,17 @@ const float EPSILON = 1e-6;
 const float E = 2.71828182846;
 }  // namespace constans
 
-float McLorenFunc(float x, int steps) {
-  float result = 0;
-  for (int n = 0; n < steps; ++n) {
-    result += pow(-1, n) * pow(x, 2 * n + 1) / (tgamma(n + 1) * (2 * n + 1));
+float Tfunc(float x) {
+  int n = 0;
+  float node_0 = x;
+  float ans = x;
+  while (fabs(node_0) > 1e-6) {
+    float q = (-1)*(((2*n + 1)*x*x)/(2*n*n + 5*n + 3));
+    node_0 *= q;
+    ans += node_0;
+    n++;
   }
-  return (2 / sqrt(M_PI)) * result;
+  return (2/sqrt(M_PI))*ans;
 }
 
 float func(float t) { return (2 / sqrt(M_PI)) * pow(constans::E, -(t * t)); }
@@ -86,8 +91,7 @@ float SypmsonsFormula(float (*func)(float), const float &a, float b,
     return result;
 }
 
-float GaussFormula(float (*func)(float), const float &a, float b,
-                       int steps) {
+float GaussFormula(float (*func)(float), const float &a, float b, int steps) {
     float h = (b - a) / steps;
     float ad1 = (1 - 1.0 / sqrt(3)) * h / 2;
     float ad2 = (1 + 1.0 / sqrt(3)) * h / 2;
@@ -114,12 +118,12 @@ void CalculateFunc(vector<float> points,
       j = function(func, constans::LEFT_BORDER, point, i);
     } while (abs(last_j - j) > constans::EPSILON && i < constans::STEPS);
 
-    float difference = abs(McLorenFunc(point, 11) - j);
+    float difference = abs(Tfunc(point) - j);
 
     printf(
-        "x_i = %.1lf | J_o = %.6lf | J_n = %.6lf | |J_o - J_n| = %.6lf | N "
+        "x_i = %.1lf | J_o = %.10lf | J_n = %.10lf | |J_o - J_n| = %.10lf | N "
         "= %d\n",
-        point, McLorenFunc(point, 11), j, difference, i);
+        point, Tfunc(point), j, difference, i);
   }
 }
 
