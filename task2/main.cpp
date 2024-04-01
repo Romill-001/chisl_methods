@@ -17,7 +17,7 @@ float McLorenFunc(float x, int steps) {
   for (int n = 0; n < steps; ++n) {
     result += pow(-1, n) * pow(x, 2 * n + 1) / (tgamma(n + 1) * (2 * n + 1));
   }
-  return 2 / sqrt(M_PI) * result;
+  return (2 / sqrt(M_PI)) * result;
 }
 
 float func(float t) { return (2 / sqrt(M_PI)) * pow(constans::E, -(t * t)); }
@@ -114,12 +114,12 @@ void CalculateFunc(vector<float> points,
       j = function(func, constans::LEFT_BORDER, point, i);
     } while (abs(last_j - j) > constans::EPSILON && i < constans::STEPS);
 
-    float difference = abs(McLorenFunc(point, 12) - j);
+    float difference = abs(McLorenFunc(point, 11) - j);
 
     printf(
         "x_i = %.1lf | J_o = %.6lf | J_n = %.6lf | |J_o - J_n| = %.6lf | N "
         "= %d\n",
-        point, McLorenFunc(point, 12), j, difference, i);
+        point, McLorenFunc(point, 11), j, difference, i);
   }
 }
 
