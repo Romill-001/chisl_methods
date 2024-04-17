@@ -39,7 +39,7 @@
 \hfill \break
 \large{ИНСТИТУТ ВЫЧИСЛИТЕЛЬНОЙ МАТЕМАТИКИ\\ И ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ}\\
  \hfill \break
-\large{Кафедра прикладной математики}\\
+\large{Кафедра прикладной математики и искусственого интеллекта}\\
 \hfill\break
 \hfill \break
 \large{Направление подготовки: 01.03.04 – Прикладная математика}\\
@@ -98,41 +98,41 @@
     \text{erf}(x) =\displaystyle\frac{2}{\sqrt{\pi}} \displaystyle\int\limits_{0}^{x} e^{-t^2} dt
 \end{equation}
 \begin{enumerate}
-    \item Протабулировать erf(x) на отрезке [a,b] с шагом h и точностью $ \varepsilon$, основываясь на ряде Тейлора,\\
+    \item Протабулировать erf(x) на отрезке [a,b] с шагом h и точностью $ \varepsilon$, основываясь на ряде Тейлора,
      предварительно вычислив его
      \begin{equation}
         \text{erf}(x) =\displaystyle\frac{2}{\sqrt{\pi}} \displaystyle\sum\limits_{n=1}^{\infty}(-1)^n\displaystyle\frac{x^{2n+1}}{n!(2n+1)}
      \end{equation}
-    где a = 0, b = 2, h = 0.2, $\varepsilon = 10^{-6}$. Получив таким образом таблицу из 11 точек
+    где $a = 0, b = 2, h = 0.2$, $\varepsilon = 10^{-6}$. Получив таким образом таблицу из 11 точек
     \begin{tabbing}
         $x_0$ \= $x_1$ \= $x_2$ \= \dots\\
         $f_0$ \> $f_1$ \> $f_2$ \> \dots\\
     \end{tabbing}
-    $f_i = \text{erf}(x_i), \quad x_i = a + i \cdot h, \quad i = 0,\dots,n.$
-    \item {Вычислить erf(x) при помощи пяти составных квадратурных формул:
+    $f_i = \text{erf}(x_i), \quad x_i = a + i   h, \quad i = 0,\dots,n.$
+    \item {Вычислить erf(x) при помощи пяти составных квадратурных формул при $h=(x_{i+1} - x_i)$:
         \begin{enumerate}
             \item {
-                Формула Левых прямоугольников:
+                Формула правых прямоугольников:
                 \begin{equation}
-                    J_N(x) = \displaystyle\sum_{i=1}^{n}h \cdot g(x_i), \quad h=(x_{i+1} - x_i)
+                    J_N(x) = \displaystyle\sum_{i=1}^{n}h g(x_i)
                 \end{equation}
                 }
             \item {
-                Формула Центральных прямоугольников:
+                Формула центральных прямоугольников:
                 \begin{equation}
-                    J_N(x) = \displaystyle\sum_{i=1}^{n}h \cdot g\left(\displaystyle\frac{x_i + x_{i+1}}{2}\right) 
+                    J_N(x) = \displaystyle\sum_{i=1}^{n}h g\left(\displaystyle\frac{x_i + x_{i+1}}{2}\right) 
                 \end{equation}
                 }
             \item {
                 Формула трапеции:
                 \begin{equation}
-                    J_N(x) = \displaystyle\sum_{i=1}^{n}h \cdot \displaystyle\frac{g(x_i)+g(x_{i+1})}{2}
+                    J_N(x) = \displaystyle\sum_{i=1}^{n}h \displaystyle\frac{g(x_i)+g(x_{i+1})}{2}
                 \end{equation}
                 }
             \item {
                 Формула Симпсона:
                 \begin{equation}
-                    J_N(x) = \displaystyle\sum_{i=1}^{n}\displaystyle\frac{h}{6} \cdot \left[g(x_i)+4g\left(
+                    J_N(x) = \displaystyle\sum_{i=1}^{n}\displaystyle\frac{h}{6} \left[g(x_i)+4g\left(
                         \displaystyle\frac{x_i + x_{i+1}}{2}
                     \right) + g(x_{i+1}) \right]
                 \end{equation}
@@ -140,7 +140,7 @@
             \item {
                 Формула Гаусса:
                 \begin{equation}
-                    J_N(x) = \displaystyle\sum_{i=1}^{n}\displaystyle\frac{h}{2} \cdot \left[g\left(
+                    J_N(x) = \displaystyle\sum_{i=1}^{n}\displaystyle\frac{h}{2} \left[g\left(
                         x_i + \displaystyle\frac{h}{2}\left(1 - \displaystyle\frac{1}{\sqrt{3}} \right)
                     \right) +
                     g\left(
@@ -156,9 +156,9 @@
 Вычисления проводятся от начала интегрирования до каждой из 11 точек, увеличивая количество разбиений между точками в 2 раза до тех пор, пока погрешность больше $\varepsilon$.
 \newpage
 \section{Ход работы}
-Выберем точки на отрезке [a,b] с шагом h.
+Выберем точки на отрезке [a,b] с шагом $h = 0.2$.
 \begin{center}
-    $x_i = a + i \cdot h$.
+    $x_i = a + i   h$.
 \end{center}
 Для каждой точки $x_i$ найдём значение $f(x_i)$ и составим таблицу результатов (Таблица 1).
 \begin{table}[h]

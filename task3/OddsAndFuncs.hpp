@@ -6,7 +6,7 @@
 #include <vector>
 
 namespace odds {
-    int n = 10;
+    int n = 20;
     std::vector<double> alpha(n);
     std::vector<double> betta(n);
     std::vector<double> a(n);
@@ -20,15 +20,15 @@ namespace odds {
 }
 
 double f_x(double x) {
-    return -(std::pow(x,5)) + 22 * std::pow(x,4) - 36 * std::pow(x,3) + 28 * x * x - 19 * x + 6;
+    return 6 + (-1) * (std::pow(x,5)) + 22 * std::pow(x,4) - 36 * std::pow(x,3) + 28 * x * x - 19 * x;
 }
 
 double u_x(double x) {
-    return x * std::pow((1 - x), 3);
+    return (-1) * std::pow(x,4) + 3 * std::pow(x,3) - 3 * x * x + x;
 }
 
 double p_x(double x) {
-    return 1 + x*x;
+    return 1 + x * x;
 }
 
 double q_x(double x) {
