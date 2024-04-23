@@ -1,13 +1,41 @@
-#include "OddsAndFuncs.hpp"
+
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+#include <vector>
 
 using namespace std;
-using namespace odds;
+
+double f_x(double x) {
+    return 6  -(std::pow(x,5)) + 22 * std::pow(x,4) - 36 * std::pow(x,3) + 28 * x * x - 19 * x;
+}
+
+double u_x(double x) {
+    return (-1) * std::pow(x,4) + 3 * std::pow(x,3) - 3 * x * x + x;
+}
+
+double p_x(double x) {
+    return 1 + x * x;
+}
+
+double q_x(double x) {
+    return 1 + x;
+}
 
 int main() {
+    int n = 10;
+    std::vector<double> alpha(n+1);
+    std::vector<double> betta(n+1);
+    std::vector<double> a(n+1);
+    std::vector<double> b(n+1);
+    std::vector<double> c(n+1);
+    std::vector<double> y_i(n+1);
+    std::vector<double> a_i(n+1);
+    std::vector<double> q_i(n+1);
+    std::vector<double> u_i(n+1);
+    std::vector<double> f_i(n+1);
 
     double h = 1.0 / n;
-    y_i[0] = 0;
-    y_i[n] = 0;
 
     for (int i = 0; i <= n; i++) {
         a_i[i] = p_x(i * h);
