@@ -1,4 +1,4 @@
-\documentclass[14pt]{article}
+\documentclass[a4paper,12pt]{article}
 \usepackage[utf8x]{inputenc}
 \usepackage[T2A]{fontenc}
 \usepackage[russian,english]{babel}
@@ -9,7 +9,8 @@
 \usepackage{enumitem}
 \usepackage{listings}
 \usepackage{xcolor}
-\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{setspace}
+\usepackage[left=3cm, right=1.5cm, top=2cm, bottom=2cm]{geometry}
 \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}.}
 \lstset{
     language=C++,
@@ -54,62 +55,52 @@
 \end{center}
 
 \hfill \break
-\large{\textbf{Выполнил:}\\Романов И.И. 09-222 группа.}
-\hfill \break
-\hfill \break
-\large{\textbf{Руководитель:}\\Глазырина О.В.}
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
-\begin{center} Казань 2024 \end{center}
+\begin{flushright}
+			
+    \large{Выполнил:}
+    
+    \large{студент группы 09-222}
+    
+    \large{Романов И. И.}
+    
+    \large{Проверил:}
+    
+    \large{ассистент Глазырина О.В.}
+    
+\end{flushright}
+\vfill
+\begin{center} \large{Казань, 2024 год} \end{center}
 \thispagestyle{empty}
  
 
 \newpage
 \begin{center}
 \renewcommand{\contentsname}{Содержание}
-\tableofcontents
+\fontsize{14}{1.15}\selectfont
+\mdseries\selectfont{\tableofcontents}
 \newpage
 \end{center}
+\setlength{\parindent}{1.25cm}
 \newpage
+\selectfont\onehalfspacing{
 \section{Постановка задачи}
-\hspace{5mm}Необходимо изучить и сравнить различные способы приближённого вычисления функции ошибок
+\hspace{1.25cm}Необходимо изучить и сравнить различные способы приближённого вычисления функции ошибок
 \begin{equation}
     \text{erf}(x) =\displaystyle\frac{2}{\sqrt{\pi}} \displaystyle\int\limits_{0}^{x} e^{-t^2} dt
 \end{equation}
 \begin{enumerate}
-    \item Протабулировать erf(x) на отрезке [a,b] с шагом h и точностью $ \varepsilon$, основываясь на ряде Тейлора,
-     предварительно вычислив его
-     \begin{equation}
-        \text{erf}(x) =\displaystyle\frac{2}{\sqrt{\pi}} \displaystyle\sum\limits_{n=1}^{\infty}(-1)^n\displaystyle\frac{x^{2n+1}}{n!(2n+1)}
-     \end{equation}
-    где $a = 0, b = 2, h = 0.2$, $\varepsilon = 10^{-6}$. Получив таким образом таблицу из 11 точек
+    \item Протабулировать erf(x) на отрезке [a,b] с шагом h и точностью $ \varepsilon$, основываясь на ряде Маклорена,
+     предварительно вычислив его. Получив таким образом таблицу из 11 точек вида:
+    %  \begin{equation}
+    %     \text{erf}(x) =\displaystyle\frac{2}{\sqrt{\pi}} \displaystyle\sum\limits_{n=1}^{\infty}(-1)^n\displaystyle\frac{x^{2n+1}}{n!(2n+1)}
+    %  \end{equation} Получив таким образом таблицу из 11 точек
     \begin{tabbing}
         $x_0$ \= $x_1$ \= $x_2$ \= \dots\\
         $f_0$ \> $f_1$ \> $f_2$ \> \dots\\
     \end{tabbing}
-    $f_i = \text{erf}(x_i), \quad x_i = a + i   h, \quad i = 0,\dots,n.$
-    \item {Вычислить erf(x) при помощи пяти составных квадратурных формул при $h=(x_{i+1} - x_i)$:
+    $f_i = \text{erf}(x_i), \quad x_i = a + i  h, \quad i = 0,\dots,n.$
+    \item {Вычислить erf(x) при помощи пяти составных квадратурных формул при\\
+     $h=(x_{i+1} - x_i)$:
         \begin{enumerate}
             \item {
                 Формула правых прямоугольников:
@@ -153,19 +144,37 @@
     }
 \end{enumerate}
 
-Вычисления проводятся от начала интегрирования до каждой из 11 точек, увеличивая количество разбиений между точками в 2 раза до тех пор, пока погрешность больше $\varepsilon$.
+Вычисления проводятся от начала интегрирования до каждой из 11 точек, увели\-чивая количество разбиений между точками в 2 раза до тех пор, пока погрешность больше $\varepsilon$.
 \newpage
 \section{Ход работы}
-Выберем точки на отрезке [a,b] с шагом $h = 0.2$.
-\begin{center}
-    $x_i = a + i   h$.
-\end{center}
-Для каждой точки $x_i$ найдём значение $f(x_i)$ и составим таблицу результатов (Таблица 1).
+\hspace*{1.25cm}Для того чтобы найти значение функции в точке, необходимо протабулировать искомый интеграл на отрезке [a, b] с шагом $h = 0.2$ и точностью $\varepsilon$. Для этого:
+\begin{enumerate}
+    \item Найдём разбиение подинтегральной функции $e^{-t^2}$ в ряд Маклорена, подставив в стандартное разбиение функции $e^x$ в ряд Маклорена $x = -t^2$:
+    \begin{equation}
+        e^x = \sum_{n = 0}^{\infty}\frac{x^n}{n!} \implies e^{-t^2} = \sum_{n = 0}^{\infty}\frac{(-1)^n t^{2n}}{n!}
+    \end{equation}
+    \item Проинтегрируем полученное выражение на интеграле [0, x]:
+    \begin{equation}
+        \frac{2}{\sqrt{\pi}}\int\limits_{0}^{x}\sum_{n = 0}^{\infty}\frac{(-1)^n t^{2n}}{n!}\mathrm{d}t = \frac{2}{\sqrt{\pi}}\left.\sum_{n = 0}^{\infty}\frac{(-1)^n t^{2n+1}}{(2n-1)n!}\right|_{0}^{x} = \frac{2}{\sqrt{\pi}}\sum_{n = 0}^{\infty}\frac{(-1)^n x^{2n+1}}{(2n-1)n!}
+    \end{equation}
+    \item Выделим два общих члена $a_n, \; a_{n + 1}$ из полученного выражения и найдём\\ $q_n = \dfrac{a_{n+1}}{a_n}$:
+    \begin{equation}
+        a_{n}=\frac{(-1)^{n}x^{2n+1}}{n!(2n+1)}, \quad a_{n+1}=\frac{(-1)^{n+1}x^{2n+3}}{(n+1)!(2n+3)}.
+    \end{equation}
+    \begin{equation}
+        q_{n}=\frac{-x^{2}(2n+1)}{(n+1)(2n+3)}.
+    \end{equation}
+\end{enumerate}
+Таким образом,
+\begin{equation}
+	a_{n}=a_{0}\prod_{n=0}^{n-1} q_{n}.
+\end{equation}
+Для каждой точки $x_i = a + i  h$ найдём значение $erf(x_i)$ и составим таблицу результатов (Таблица 1).
 \begin{table}[h]
     \centering
     \begin{tabular}{|c|c|}
         \hline
-        $x_i$ & $f(x_i)$\\
+        $x_i$ & $erf(x_i)$\\
         \hline
         0,0 & 0,0000000000\\
         \hline
@@ -190,10 +199,10 @@
         2,0 & 0,9953226447\\
         \hline
     \end{tabular}
-    \caption*{\small{Таблица 1 - точки $x_i$ и значения разложения в ряд Тейлора $f(x_i)$}}
+    \caption*{\small{Таблица 1 - точки $x_i$ и значения разложения в ряд Маклорена функции $erf(x_i)$}}
 \end{table}
-
-После нахождения значений разложения в ряд Тейлора в точках вычислим значение erf(x) при помощи 5 составных квадратурных формул. Для каждой формулы составим свою таблицу. В таблицах будут находится значения точки, для которой производились расчёты, значение разбиения в ряд Тейлора, значение найденного с помощью формулы интеграла в точке, модуль разницы между значениями найденного интеграла и разбиения, количества разбиений, которые пришлось совершить для нахождения значения интеграла с нужной точностью.
+\clearpage
+После нахождения значений разложения в ряд Маклорена в точках, вычислим значение erf(x) при помощи 5 составных квадратурных формул. Для каждой формулы составим свою таблицу. В таблицах будут находится значения точки, для которой производились расчёты, значение разбиения в ряд Маклорена в точке, значение найден\-ного с помощью формулы интеграла в точке, модуль разницы между значениями найде\-нного интеграла и разбиения, количества разбиений, которые пришлось совершить для нахожде\-ния значения интеграла с нужной точностью.
 \begin{enumerate}[label = \arabic*.]
     \item {Правые прямоугольники:
         \begin{table}[h]
@@ -227,7 +236,6 @@
           \end{tabular}
           \caption*{\small{Таблица 2 - таблица значений для формулы Правых прямоугольников}}
         \end{table}
-        \newpage
     }
     \item {Центральные прямоугольники:
         \begin{table}[h]
@@ -261,8 +269,9 @@
           \end{tabular}
           \caption*{\small{Таблица 3 - таблица значений для формулы Центральных прямоугольников}}
         \end{table}
+        \clearpage
     }
-    \item {Формула Трапеций:
+    \item {Формула трапеций:
         \begin{table}[h]
           \centering
           \begin{tabular}{|c|c|c|c|c|}
@@ -316,6 +325,7 @@
             \begin{equation}
                 \int\limits_{a}^{b}L_2(x)\mathrm{d}x = \frac{b-a}{6}\left(f(a) + 4f\left(\frac{a+b}{2}\right)+f(b)\right)
             \end{equation}
+            \clearpage
             }
             \item {Значения полученные для формулы Симпсона:
             \begin{table}[h]
@@ -386,7 +396,8 @@
     }
 \end{enumerate}
 \section{Выводы}
-\hspace{5mm}Проделав все вычисления, можно сделать выводы, что более комплексные методы вычисления интеграла, как формула Гаусса и Симпсона, показыают наилучшие результаты за меньшее количество разбиений. В это же время худшие результаты вычисления показыают методы Правых прямоугольников и метод Трапеций, приводя к довольно большому значению ошибки.
+\hspace{1.25cm}Проделав все вычисления, можно сделать выводы, что более комплексные методы вычисления интеграла, как формула Гаусса и Симпсона, показыают наилучшие результа\-ты за меньшее количество разбиений. В это же время худшие результаты вычисления показыают методы правых прямоугольников и метод трапеций, приводя к довольно большому значению ошибки.}
+\clearpage
 \section{Листинг программы}
 \lstinputlisting[language=C++]{./main.cpp}
 \end{document}

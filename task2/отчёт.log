@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.12)  17 APR 2024 12:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.4.18)  23 APR 2024 23:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -8,8 +8,8 @@ LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-01-21>
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
-File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
 \c@section=\count186
@@ -244,6 +244,9 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
 )
+(/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
 (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
@@ -280,33 +283,29 @@ File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count293
 \l__pdf_internal_box=\box55
 )
-
-LaTeX Warning: Unused global option(s):
-    [14pt].
-
 (./РѕС‚С‡С‘С‚.aux)
 \openout1 = `РѕС‚С‡С‘С‚.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
  (/usr/share/texlive/texmf-dist/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
-LaTeX Info: Redefining \th on input line 30.
+LaTeX Info: Redefining \th on input line 31.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
@@ -334,23 +333,23 @@ Package caption Info: End \AtBeginDocument code.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(56.9055pt, 483.69687pt, 56.9055pt)
+* h-part:(L,W,R)=(85.35826pt, 469.47049pt, 42.67912pt)
 * v-part:(T,H,B)=(56.9055pt, 731.23584pt, 56.9055pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=483.69687pt
+* \textwidth=469.47049pt
 * \textheight=731.23584pt
-* \oddsidemargin=-15.36449pt
-* \evensidemargin=-15.36449pt
+* \oddsidemargin=13.08827pt
+* \evensidemargin=13.08827pt
 * \topmargin=-52.36449pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=10.0pt
+* \topskip=12.0pt
 * \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
+* \marginparwidth=35.0pt
+* \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -369,122 +368,7 @@ File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-32.def
 File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
 )
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--84
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
 
  []
 
@@ -495,79 +379,71 @@ Underfull \hbox (badness 10000) in paragraph at lines 56--84
 \openout3 = `РѕС‚С‡С‘С‚.toc'.
 
 
-[2]
-Overfull \hbox (8.40517pt too wide) in paragraph at lines 96--97
- \T2A/cmr/m/n/12 Необходимо изучить и сравнить различные способы приближјнного 
-вычисления функции
- []
+[2]<<ot1.cmap>><<oml.cmap>><<oms.cmap>><<omx.cmap>> [3] [4] [5
 
-<<ot1.cmap>><<oml.cmap>><<oms.cmap>><<omx.cmap>> [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 304--310
+]
+Underfull \hbox (badness 10000) in paragraph at lines 313--319
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 312--316
+Underfull \hbox (badness 10000) in paragraph at lines 321--325
 
  []
 
-[5]
-Overfull \hbox (2.69751pt too wide) in paragraph at lines 389--390
+[6
+
+]
+Overfull \hbox (1.42056pt too wide) in paragraph at lines 399--400
+ \T2A/cmr/m/n/12 Проделав все вычисления, можно сделать выводы, что более компл
+ексные методы
+ []
+
+
+Overfull \hbox (6.482pt too wide) in paragraph at lines 399--400
 \T2A/cmr/m/n/12 вычисления интеграла, как формула Гаусса и Симпсона, показыают 
-наилучшие результаты
+наилучшие результа-
  []
 
+[7
 
-Overfull \hbox (15.60733pt too wide) in paragraph at lines 389--390
-\T2A/cmr/m/n/12 за меньшее количество разбиений. В это же время худшие результа
-ты вычисления показыают
- []
-
-
-Overfull \hbox (14.50798pt too wide) in paragraph at lines 389--390
-\T2A/cmr/m/n/12 методы Правых прямоугольников и метод Трапеций, приводя к довол
-ьно большому значению
- []
-
+]
 LaTeX Font Info:    Trying to load font information for T2A+cmtt on input line 
-391.
-(/usr/share/texlive/texmf-dist/tex/latex/cyrillic/t2acmtt.fd
+402.
+ (/usr/share/texlive/texmf-dist/tex/latex/cyrillic/t2acmtt.fd
 File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 ) (./main.cpp
-[6] [7] [8]) [9] (./РѕС‚С‡С‘С‚.aux) ) 
+[8
+
+] [9] [10]) [11] (./РѕС‚С‡С‘С‚.aux) ) 
 Here is how much of TeX's memory you used:
- 9403 strings out of 479648
- 140864 string characters out of 5886115
- 1123103 words of memory out of 5000000
- 27230 multiletter control sequences out of 15000+600000
- 482643 words of font info for 57 fonts, out of 8000000 for 9000
+ 9430 strings out of 479648
+ 141692 string characters out of 5886115
+ 944216 words of memory out of 5000000
+ 27268 multiletter control sequences out of 15000+600000
+ 481404 words of font info for 54 fonts, out of 8000000 for 9000
  475 hyphenation exceptions out of 8191
- 55i,11n,63p,974b,1093s stack positions out of 5000i,500n,10000p,200000b,80000s
- </root/.texlive2021/texmf-var/fonts/pk/lj
-four/lh/lh-t2a/latt0900.600pk> </root/.texlive2021/texmf-var/fonts/pk/ljfour/lh
-/lh-t2a/larm0500.600pk> </root/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a
-/larm0900.600pk> </root/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larm10
-00.600pk> </root/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/labx1440.600p
-k> </root/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/larm1200.600pk> </ro
-ot/.texlive2021/texmf-var/fonts/pk/ljfour/lh/lh-t2a/labx1200.600pk></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on РѕС‚С‡С‘С‚.pdf (9 pages, 247408 bytes).
+ 55i,11n,63p,1003b,1093s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super
+/cm-super-t2a.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx
+1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share
+/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/p
+ublic/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1
+200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/
+texmf/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on РѕС‚С‡С‘С‚.pdf (11 pages, 285460 bytes).
 PDF statistics:
- 457 PDF objects out of 1000 (max. 8388607)
- 95 compressed objects within 1 object stream
+ 116 PDF objects out of 1000 (max. 8388607)
+ 78 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
