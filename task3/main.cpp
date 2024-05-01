@@ -12,8 +12,8 @@ int main() {
     printf("Прогонка\n");
     progonka_method(A, alpha, betta, y_i_p, n);
     printf("Зейдель\n");
-    Seidel_method(1000, n, y_i_s, A);
-    //printf("Нижняя релаксация\n");
-    //relax_bottom(1000, n, y_i_r);
+    Seidel_method(100, n, y_i_s, A);
+    printf("Нижняя релаксация\n");
+    relax_bottom(100, n, y_i_r, A);
     return 0;
 }
