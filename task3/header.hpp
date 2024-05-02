@@ -26,17 +26,25 @@ double q_x(double x) {
     return 1 + x;
 }
 
-void progonka_method(vector<vector<double>> &A, vector<double> &alpha, vector<double> &betta, vector<double> &x, int n) {
+vector<double> func_vec(int n) {
+    double h = 1. / n;
+    vector<double> b(n,0);
+    for (int i = 1; i <= n; ++i) {
+        b[i - 1] = f_x(i * h) * pow(h,2);
+    }
+    return b;
+}
+void progonka_method(vector<vector<double>> &A, vector<double> &alpha, vector<double> &betta, vector<double> &x, int n, vector<double> &b) {
     double h = 1.0 / n;
 
     // прямой ход
     alpha[0] = A[0][1] / A[0][0];
-    betta[0] = (f_x(1 * h)* pow(h, 2) / A[0][0]);
+    betta[0] = (b[0]) / A[0][0];
 
     for (int i = 1; i < n; ++i) {
         double del = 1.0 / (A[i][i] - alpha[i - 1] * A[i][i - 1]);
         alpha[i] = A[i][i + 1] * del;
-        betta[i] = (-A[i][i - 1] * betta[i - 1] + f_x((i + 1) * h) * pow(h,2)) * del;
+        betta[i] = (-A[i][i - 1] * betta[i - 1] + b[i]) * del;
     }
 
     // обратный ход
@@ -46,7 +54,7 @@ void progonka_method(vector<vector<double>> &A, vector<double> &alpha, vector<do
     }
 
     for (int i = 0; i <= n; ++i) {
-        printf("ih = %4.2lf | y_i = %9.6lf | u(ih) = %8.6lf | |y_i - u(ih)| = %8.6lf\n", i * h, -x[i], u_x(i * h), abs(-x[i] - u_x(i * h)));
+        printf("ih = %4.2lf | y_i = %9.6lf | u(ih) = %8.6lf | |y_i - u(ih)| = %8.6lf\n", i * h, x[i], u_x(i * h), abs(x[i] - u_x(i * h)));
     }
 }
 
@@ -81,7 +89,7 @@ vector<vector<double>> create_matrix(int n){
     return matrix_res;
 }
 
-double calculate_new_x(int i, vector<double>& x, int n, vector<vector<double>> &A) {
+double calculate_new_x(int i, vector<double>& x, int n, vector<vector<double>> &A, vector<double> &b) {
     double h = 1.0 / n;
     double sum1 = 0.0;
     double sum2 = 0.0;
@@ -98,30 +106,47 @@ double calculate_new_x(int i, vector<double>& x, int n, vector<vector<double>> &
         }
     }
 
-    return (f_x((i + 1) * h) * pow(h, 2) - sum1 - sum2) * (1.0 / A[i][i]);
+    return (b[i] - sum1 - sum2) * (1.0 / A[i][i]);
 }
 
-void Seidel_method(int maxK, int n, vector<double> &x, vector<vector<double>> &A) {
-    double h = 1.0 / n;
-    int k = 0;
-    double error = 0.0;
-    x[0] = 0;
+double calculate_error(vector<double> &new_x, vector<double> &old_x) {
 
-    while (k < maxK) {
-        error = 0.0;
+    double max_err = 0.0;
+    for (int i = 0; i < old_x.size(); ++i) {
+        double err = abs(new_x[i] - old_x[i]);
+        if (err > max_err)
+            max_err = err;
+    }
+
+    return max_err;
+}
+void Seidel_method(int maxK, int n, vector<double> &x, vector<vector<double>> &A, vector<double> &b) {
+    double h = 1.0 / n;
+    int k = 1;
+    vector<double> new_x(n, 0.);
+    x[0] = 0;
+    double error = 1.0;
+
+    while (error > 1e-6 && k < maxK) {
+
+        vector<double> curr_x = x;
+
         for (int i = 0; i < n; ++i) {
-            double new_x = calculate_new_x(i, x, n, A);
-            error = max(error, abs(x[i] - new_x));
-            x[i] = new_x;
+            new_x[i] = calculate_new_x(i, curr_x, n, A, b);
         }
+
+        error = calculate_error(curr_x, new_x);
+
+        x = new_x;
+
         k++;
     }
 
     for (int i = 0; i <= n; ++i) {
-        printf("ih = %4.2lf | y_i = %9.6lf | k = %d, err = %9.6lf\n", i * h, -x[i], k, error);
+        printf("ih = %4.2lf | y_i = %9.6lf | k = %d, err = %9.6lf\n", i * h, x[i], k, error);
     }
 }
-double calculate_new_x_relax(int i, vector<double>& x, int n, vector<vector<double>> &A, double omega) {
+double calculate_new_x_relax(int i, vector<double>& x, int n, vector<vector<double>> &A, double omega, vector<double> &b) {
     double h = 1.0 / n;
     double sum1 = 0.0;
     double sum2 = 0.0;
@@ -138,28 +163,89 @@ double calculate_new_x_relax(int i, vector<double>& x, int n, vector<vector<doub
         }
     }
 
-    double new_x = (f_x((i + 1) * h) * pow(h, 2) - sum1 - sum2) * (1.0 / A[i][i]);
+    double new_x = (b[i] - sum1 - sum2) * (1.0 / A[i][i]);
     return x[i] + omega * (new_x - x[i]);
 }
 
-void relax_bottom(int maxK, int n, vector<double> &x, vector<vector<double>> &A) {
-    double h = 1. / n;
-
-    int k = 0;
-    double error = 0.0;
-    double omega = 0.95;
+void relax_bottom(int maxK, int n, vector<double> &x, vector<vector<double>> &A, vector<double> &b) {
+    double h = 1.0 / n;
+    int k = 1;
+    vector<double> new_x(n, 0.);
     x[0] = 0;
+    double error = 1.0;
+    double omega = 0.8;
 
-    while (k < maxK) {
-        error = 0.0;
+    while (error >= 1e-6 && k < maxK) {
+
+        vector<double> curr_x = x;
+
         for (int i = 0; i < n; ++i) {
-            double new_x = calculate_new_x_relax(i, x, n, A, omega);
-            error = max(error, abs(x[i] - new_x));
-            x[i] = new_x;
+            new_x[i] = calculate_new_x_relax(i, curr_x, n, A, omega, b);
         }
+
+        error = calculate_error(curr_x, new_x);
+
+        x = new_x;
+
         k++;
     }
+
     for (int i = 0; i <= n; ++i) {
-        printf("ih = %4.2lf | y_i = %9.6lf | k = %d\n", i * h, -x[i], k);
+        printf("ih = %4.2lf | y_i = %9.6lf | k = %d, err = %9.6lf\n", i * h, x[i], k, error);
+    }
+}
+
+double calculate_tau(vector<double> &r, vector<double> &Ar) {
+    double a = 0.;
+    double b = 0.;
+    for (int i = 0; i < r.size(); ++i) {
+        a += r[i] * r[i];
+    }
+    for (int i = 0; i < r.size(); ++i) {
+        b += Ar[i] * r[i];
+    }
+    return a / b;
+}
+
+double calculate_new_x_spusk(int i, vector<double>& x, int n, vector<vector<double>> &A, vector<double> &b) {
+    vector<double> r(n + 1, 0.);
+    vector<double> Ar(n + 1, 0.);
+    
+    r[0] = A[0][0] * x[0] + A[0][1] * x[1] - b[0];
+    Ar[0] = A[0][0] * r[0] + A[0][1] * r[1];
+
+    if (i < n - 1 && i > 0) {
+       r[i] = A[i][i - 1] * x[i - 1] + A[i][i] * x[i] + A[i][i + 1] * x[i + 1] - b[i];
+       Ar[i] = A[i][i - 1] * r[i - 1] + A[i][i] * r[i] + A[i][i + 1] * r[i + 1];
+    }
+
+    return calculate_tau(r, Ar) * r[i];
+}
+
+void spusk(int maxK, int n, vector<double> &x, vector<vector<double>> &A, vector<double> &b) {
+    double h = 1.0 / n;
+    int k = 1;
+    vector<double> new_x(n, 0.);
+    new_x[0] = -calculate_new_x_spusk(0, new_x, n, A, b);
+    double error = 1.0;
+
+    while (error >= 1e-6 && k < maxK) {
+
+        vector<double> curr_x = x;
+
+        for (int i = 1; i < n; ++i) {
+            double tau_r = calculate_new_x_spusk(i, curr_x, n, A, b);
+            new_x[i] = curr_x[i] - tau_r;
+        }
+
+        error = calculate_error(curr_x, new_x);
+
+        x = new_x;
+
+        k++;
+    }
+
+    for (int i = 0; i <= n; ++i) {
+        printf("ih = %4.2lf | y_i = %9.6lf | k = %d, err = %9.6lf\n", i * h, x[i], k, error);
     }
 }
