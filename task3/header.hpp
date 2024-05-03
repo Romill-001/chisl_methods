@@ -34,7 +34,11 @@ vector<double> func_vec(int n) {
     }
     return b;
 }
-void progonka_method(vector<vector<double>> &A, vector<double> &alpha, vector<double> &betta, vector<double> &x, int n, vector<double> &b) {
+//Алгорит Томаса
+void progonka_method(vector<vector<double>> &A, vector<double> &x, int n, vector<double> &b) {
+    
+    vector<double> alpha(n + 1), betta(n + 1);
+
     double h = 1.0 / n;
 
     // прямой ход
@@ -53,7 +57,7 @@ void progonka_method(vector<vector<double>> &A, vector<double> &alpha, vector<do
         x[i] = -alpha[i] * x[i + 1] + betta[i];
     }
 
-    for (int i = 0; i <= n; ++i) {
+    for (int i = 0; i < n; ++i) {
         printf("ih = %4.2lf | y_i = %9.6lf | u(ih) = %8.6lf | |y_i - u(ih)| = %8.6lf\n", i * h, x[i], u_x(i * h), abs(x[i] - u_x(i * h)));
     }
 }
@@ -72,6 +76,7 @@ vector<vector<double>> create_matrix(int n){
             matrix_res[i][i + 1] = -c;
             continue;
         }
+
         if (i == (n - 1)) {
             double b = (p_x((i + 1) * h) + p_x((i + 2) * h) + (pow(h,2) * q_x((i + 1) * h)));
             double a = -p_x((i + 1) * h);
@@ -79,20 +84,22 @@ vector<vector<double>> create_matrix(int n){
             matrix_res[i][i - 1] = -a;
             continue;
         }
+
         double a = -p_x((i + 1) * h);
         double b = (p_x((i + 1) * h) + p_x((i + 2) * h) + (pow(h,2) * q_x((i + 1) * h)));
         double c = -p_x((i + 2) * h);
+
         matrix_res[i][i] = -b;
         matrix_res[i][i + 1] = -c;
         matrix_res[i][i - 1] = -a;
     }
+
     return matrix_res;
 }
 
 double calculate_new_x(int i, vector<double>& x, int n, vector<vector<double>> &A, vector<double> &b) {
     double h = 1.0 / n;
     double sum1 = 0.0;
-    double sum2 = 0.0;
 
     if (i > 0) {
         for (int j = 0; j <= i - 1; ++j) {
@@ -102,11 +109,11 @@ double calculate_new_x(int i, vector<double>& x, int n, vector<vector<double>> &
 
     if (i < n - 1) {
         for (int j = i + 1; j < n; ++j) {
-            sum2 += A[i][j] * x[j];
+            sum1 += A[i][j] * x[j];
         }
     }
 
-    return (b[i] - sum1 - sum2) * (1.0 / A[i][i]);
+    return (b[i] - sum1) * (1.0 / A[i][i]);
 }
 
 double calculate_error(vector<double> &new_x, vector<double> &old_x) {
@@ -135,21 +142,20 @@ void Seidel_method(int maxK, int n, vector<double> &x, vector<vector<double>> &A
             new_x[i] = calculate_new_x(i, curr_x, n, A, b);
         }
 
-        error = calculate_error(curr_x, new_x);
+        error = calculate_error(new_x, curr_x);
 
         x = new_x;
 
         k++;
     }
 
-    for (int i = 0; i <= n; ++i) {
-        printf("ih = %4.2lf | y_i = %9.6lf | k = %d, err = %9.6lf\n", i * h, x[i], k, error);
+    for (int i = 0; i < n; ++i) {
+        printf("ih = %4.2lf | y_i = %9.6lf | k = %d\n", i * h, x[i], k);
     }
 }
 double calculate_new_x_relax(int i, vector<double>& x, int n, vector<vector<double>> &A, double omega, vector<double> &b) {
-    double h = 1.0 / n;
+    
     double sum1 = 0.0;
-    double sum2 = 0.0;
 
     if (i > 0) {
         for (int j = 0; j <= i - 1; ++j) {
@@ -159,93 +165,98 @@ double calculate_new_x_relax(int i, vector<double>& x, int n, vector<vector<doub
 
     if (i < n - 1) {
         for (int j = i + 1; j < n; ++j) {
-            sum2 += A[i][j] * x[j];
+            sum1 += A[i][j] * x[j];
         }
     }
 
-    double new_x = (b[i] - sum1 - sum2) * (1.0 / A[i][i]);
+    double new_x = (b[i] - sum1) * (1.0 / A[i][i]);
     return x[i] + omega * (new_x - x[i]);
 }
 
-void relax_bottom(int maxK, int n, vector<double> &x, vector<vector<double>> &A, vector<double> &b) {
+void relax_bottom(int maxK, int n, vector<double>& x, vector<vector<double>>& A, vector<double>& b) {
     double h = 1.0 / n;
-    int k = 1;
-    vector<double> new_x(n, 0.);
-    x[0] = 0;
-    double error = 1.0;
     double omega = 0.8;
 
-    while (error >= 1e-6 && k < maxK) {
-
-        vector<double> curr_x = x;
+    int glob_k = 0;
+    double glob_err = 0.;
+    for (int k = 1; k <= maxK; ++k) {
+        vector<double> new_x(n, 0.0);
 
         for (int i = 0; i < n; ++i) {
-            new_x[i] = calculate_new_x_relax(i, curr_x, n, A, omega, b);
+            new_x[i] = calculate_new_x_relax(i, x, n, A, omega, b);
         }
 
-        error = calculate_error(curr_x, new_x);
+        double error = calculate_error(new_x, x);
+
+        if (error < 1e-6) {
+            glob_k = k;
+            glob_err = error;
+            break;
+        }
 
         x = new_x;
-
-        k++;
     }
 
-    for (int i = 0; i <= n; ++i) {
-        printf("ih = %4.2lf | y_i = %9.6lf | k = %d, err = %9.6lf\n", i * h, x[i], k, error);
+    for (int i = 0; i < n; ++i) {
+        printf("ih = %4.2lf | y_i = %9.6lf | k = %d\n", i * h, x[i], glob_k);
     }
 }
 
-double calculate_tau(vector<double> &r, vector<double> &Ar) {
+double calculate_tau(const std::vector<double>& r, const std::vector<double>& Ar) {
     double a = 0.;
     double b = 0.;
-    for (int i = 0; i < r.size(); ++i) {
+    for (size_t i = 0; i < r.size(); ++i) {
         a += r[i] * r[i];
-    }
-    for (int i = 0; i < r.size(); ++i) {
         b += Ar[i] * r[i];
+    }
+    if (std::abs(b) < 1e-10) {
+        return 0.0;
     }
     return a / b;
 }
 
-double calculate_new_x_spusk(int i, vector<double>& x, int n, vector<vector<double>> &A, vector<double> &b) {
-    vector<double> r(n + 1, 0.);
-    vector<double> Ar(n + 1, 0.);
-    
-    r[0] = A[0][0] * x[0] + A[0][1] * x[1] - b[0];
-    Ar[0] = A[0][0] * r[0] + A[0][1] * r[1];
+double calculate_new_x_spusk(int i, const std::vector<double>& x, int n, const std::vector<std::vector<double>>& A, const std::vector<double>& b) {
+    std::vector<double> r(n, 0.);
+    std::vector<double> Ar(n, 0.);
 
-    if (i < n - 1 && i > 0) {
-       r[i] = A[i][i - 1] * x[i - 1] + A[i][i] * x[i] + A[i][i + 1] * x[i + 1] - b[i];
-       Ar[i] = A[i][i - 1] * r[i - 1] + A[i][i] * r[i] + A[i][i + 1] * r[i + 1];
+    if (i == 0) {
+        r[0] = A[0][0] * x[0] - b[0];
+        Ar[0] = A[0][0] * r[0];
+    } else {
+        r[i] = A[i][i - 1] * x[i - 1] + A[i][i] * x[i];
+        Ar[i] = A[i][i - 1] * r[i - 1] + A[i][i] * r[i];
+        if (i < n - 1) {
+            r[i] += A[i][i + 1] * x[i + 1];
+            Ar[i] += A[i][i + 1] * r[i + 1];
+        }
     }
 
-    return calculate_tau(r, Ar) * r[i];
+    return x[i] - calculate_tau(r, Ar) * r[i];
 }
 
-void spusk(int maxK, int n, vector<double> &x, vector<vector<double>> &A, vector<double> &b) {
+void spusk(int maxK, int n, std::vector<double>& x, const std::vector<std::vector<double>>& A, const std::vector<double>& b) {
     double h = 1.0 / n;
     int k = 1;
-    vector<double> new_x(n, 0.);
-    new_x[0] = -calculate_new_x_spusk(0, new_x, n, A, b);
+    std::vector<double> new_x(n, 0.);
+    new_x[0] = calculate_new_x_spusk(0, new_x, n, A, b);
     double error = 1.0;
 
     while (error >= 1e-6 && k < maxK) {
 
-        vector<double> curr_x = x;
+        std::vector<double> curr_x = x;
 
         for (int i = 1; i < n; ++i) {
-            double tau_r = calculate_new_x_spusk(i, curr_x, n, A, b);
-            new_x[i] = curr_x[i] - tau_r;
+            new_x[i] = calculate_new_x_spusk(i, curr_x, n, A, b);
         }
 
-        error = calculate_error(curr_x, new_x);
+        error = calculate_error(new_x, curr_x);
 
         x = new_x;
 
         k++;
     }
 
-    for (int i = 0; i <= n; ++i) {
-        printf("ih = %4.2lf | y_i = %9.6lf | k = %d, err = %9.6lf\n", i * h, x[i], k, error);
+    for (int i = 0; i < n; ++i) {
+        printf("ih = %4.2lf | y_i = %9.6lf | k = %d\n", i * h, x[i], k);
     }
 }
