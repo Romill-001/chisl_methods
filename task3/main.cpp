@@ -12,10 +12,16 @@ int main() {
     printf("Прогонка\n");
     progonka_method(A, y_i_p, n, b);
     printf("Зейдель\n");
-    Seidel_method(10000, n, y_i_s, A, b);
+    int k_s = Seidel_method(n, y_i_s, A, b);
     printf("Нижняя релаксация\n");
-    relax_bottom(10000, n, y_i_r, A, b);
+    int k_r = relax_bottom(n, y_i_r, A, b);
     printf("Наискорейший спуск\n");
-    spusk(10000, n, y_i_sp, A, b);
+    int k_dec = spusk(n, y_i_sp, A, b);
+    printf("Прогонка - Зейдель\n");
+    m_print(k_s, y_i_p, y_i_s);
+    printf("Прогонка - Нижн релаксация\n");
+    m_print(k_r, y_i_p, y_i_r);
+    printf("Прогонка - Спуск\n");
+    m_print(k_dec, y_i_p, y_i_sp);
     return 0;
 }
