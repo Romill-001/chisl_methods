@@ -7,7 +7,7 @@ int main() {
     int n = 10.0;
 
     std::vector<double> y_i_p(n + 1), y_i_s(n + 1), y_i_r(n + 1), y_i_sp(n + 1), b(n);
-    vector<vector<double>> A = create_matrix(n);
+    vector<vector<double>> A = create_matrix(n + 1);
     b = func_vec(n);
     printf("Прогонка\n");
     progonka_method(A, y_i_p, n, b);

@@ -144,23 +144,23 @@ void progonka_method(vector<vector<double>> &A, vector<double> &x, int n, vector
     }
 }
 
-double calculate_new_x(int i, vector<double>& x, int n, vector<vector<double>> &A, vector<double> &b) {
+double calculate_new_x(int i, vector<double>& x, vector<double>& xn, int n, vector<vector<double>> &A, vector<double> &b) {
     double h = 1.0 / n;
-    double sum1 = 0.0;
+    double sum = 0.0;
 
     if (i > 0) {
         for (int j = 0; j <= i - 1; ++j) {
-            sum1 += A[i][j] * x[j];
+            sum += A[i][j] * xn[j];
         }
     }
 
-    if (i < n - 1) {
-        for (int j = i + 1; j < n; ++j) {
-            sum1 += A[i][j] * x[j];
+    if (i < n) {
+        for (int j = i + 1; j < n + 1; ++j) {
+            sum += A[i][j] * x[j];
         }
     }
 
-    return (b[i] - sum1) * (1.0 / A[i][i]);
+    return (b[i] - sum) * (1.0 / A[i][i]);
 }
 
 
@@ -168,15 +168,14 @@ int Seidel_method(int n, vector<double> &x, vector<vector<double>> &A, vector<do
     double h = 1.0 / n;
     int k = 0;
     vector<double> new_x(n, 0.);
-    x[0] = 0;
     double error = 1.0;
 
     while (error > 1.0 / pow(n, 3)) {
 
         vector<double> curr_x = x;
 
-        for (int i = 0; i < n; ++i) {
-            new_x[i] = calculate_new_x(i, curr_x, n, A, b);
+        for (int i = 0; i < n + 1; ++i) {
+            new_x[i] = calculate_new_x(i, curr_x, new_x, n, A, b);
         }
 
         x = new_x;
@@ -191,23 +190,23 @@ int Seidel_method(int n, vector<double> &x, vector<vector<double>> &A, vector<do
     }
     return k;
 }
-double calculate_new_x_relax(int i, vector<double>& x, int n, vector<vector<double>> &A, double omega, vector<double> &b) {
+double calculate_new_x_relax(int i, vector<double>& x,vector<double>& xn, int n, vector<vector<double>> &A, double omega, vector<double> &b) {
     
-    double sum1 = 0.0;
+    double sum = 0.0;
 
     if (i > 0) {
         for (int j = 0; j <= i - 1; ++j) {
-            sum1 += A[i][j] * x[j];
+            sum += A[i][j] * xn[j];
         }
     }
 
     if (i < n - 1) {
-        for (int j = i + 1; j < n; ++j) {
-            sum1 += A[i][j] * x[j];
+        for (int j = i + 1; j < n + 1; ++j) {
+            sum += A[i][j] * x[j];
         }
     }
 
-    double new_x = (b[i] - sum1) * (1.0 / A[i][i]);
+    double new_x = (b[i] - sum) * (1.0 / A[i][i]);
     return x[i] + omega * (new_x - x[i]);
 }
 
@@ -249,7 +248,7 @@ double calculate_new_x_relax(int i, vector<double>& x, int n, vector<vector<doub
 
 int relax_bottom(int n, vector<double>& x, vector<vector<double>>& A, vector<double>& b) {
     double h = 1.0 / n;
-    double omega = 0.9;
+    double omega = 0.8;
     double error = 1.0;
     int k = 0;
     vector<double> new_x(n, 0.);
@@ -259,7 +258,7 @@ int relax_bottom(int n, vector<double>& x, vector<vector<double>>& A, vector<dou
         vector<double> curr_x = x;
 
         for (int i = 0; i < n; ++i) {
-            new_x[i] = calculate_new_x_relax(i, curr_x, n, A, omega, b);
+            new_x[i] = calculate_new_x_relax(i, curr_x, new_x, n, A, omega, b);
         }
 
         x = new_x;
