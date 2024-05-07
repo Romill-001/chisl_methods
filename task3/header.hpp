@@ -7,18 +7,18 @@
 
 using namespace std;
 
-double f_x(double x) {
-    return -pow(x,5) + 22 * pow(x,4) - 36 * pow(x,3) + 28 * pow(x,2) - 19 * x + 6;
+double f_x(double x) { 
+    return -pow(x,5) + 22 * pow(x,4) - 36 * pow(x,3) + 28 * pow(x,2) - 19 * x + 6; 
+} 
+ 
+double u_x(double x) { 
+    return x * pow((1 - x), 3); 
+} 
+ 
+double p_x(double x) { 
+    return 1 + pow(x, 2); 
 }
 
-double u_x(double x) {
-    double t = 1 - x;
-    return x * pow(t, 3);
-}
-
-double p_x(double x) {
-   return 1 + pow(x, 2);
-}
 
 double q_x(double x) {
     return 1 + x;
@@ -26,7 +26,7 @@ double q_x(double x) {
 
 vector<double> func_vec(int n) {
     double h = 1. / n;
-    vector<double> b(n,0);
+    vector<double> b(n + 1,0);
     for (int i = 1; i <= n; ++i) {
         b[i - 1] = f_x(i * h) * pow(h,2);
     }
@@ -85,7 +85,7 @@ vector<vector<double>> create_matrix(int n){
 
     double h = 1. / n;
 
-    vector<vector<double>> matrix_res(n, vector<double>(n,0.0));
+    vector<vector<double>> matrix_res(n + 1, vector<double>(n + 1,0.0));
 
     for (int i = 0; i < n; ++i) {
         if (i == 0) {
@@ -154,7 +154,7 @@ double calculate_new_x(int i, vector<double>& x, vector<double>& xn, int n, vect
         }
     }
 
-    if (i < n) {
+    if (i < n - 1) {
         for (int j = i + 1; j < n + 1; ++j) {
             sum += A[i][j] * x[j];
         }
@@ -172,10 +172,8 @@ int Seidel_method(int n, vector<double> &x, vector<vector<double>> &A, vector<do
 
     while (error > 1.0 / pow(n, 3)) {
 
-        vector<double> curr_x = x;
-
-        for (int i = 0; i < n + 1; ++i) {
-            new_x[i] = calculate_new_x(i, curr_x, new_x, n, A, b);
+        for (int i = 0; i < n; ++i) {
+            new_x[i] = calculate_new_x(i, x, new_x, n, A, b);
         }
 
         x = new_x;
@@ -210,55 +208,17 @@ double calculate_new_x_relax(int i, vector<double>& x,vector<double>& xn, int n,
     return x[i] + omega * (new_x - x[i]);
 }
 
-// int relax_bottom(int n, vector<double>& x, vector<vector<double>>& A, vector<double>& b) {
-//     double h = 1.0 / n;
-//     double omega = 0.0;
-
-//     int k = 0;
-//     vector<double> new_x(n, 0.);
-//     x[0] = 0;
-
-//     for( int i = 0; i < n - 1; ++i) {
-//         double error = 1.0;
-//         omega += h;
-//         k = 0;
-//         vector<double> tmp (n, 0.);
-//         x = tmp;
-//         while (error > 1.0 / pow(n, 3)) {
-
-//             vector<double> curr_x = x;
-
-//             for (int i = 0; i < n; ++i) {
-//                 new_x[i] = calculate_new_x_relax(i, curr_x, n, A, omega, b);
-//             }
-
-//             x = new_x;
-
-//             error = calculate_error_dec(x, A, b);
-
-//             k++;
-//         }
-//         printf("omega = %.2lf, k = %d\n", omega, k);
-//     }
-//     // for (int i = 1; i <= n; ++i) {
-//     //     printf("ih = %4.2lf | y_i = %9.6lf | u(ih) = %8.6lf | |y_i - u(ih)| = %8.6lf\n", i * h, x[i - 1], u_x(i * h), abs(x[i - 1] - u_x(i * h)));
-//     // }
-//     return k;
-// }
-
 int relax_bottom(int n, vector<double>& x, vector<vector<double>>& A, vector<double>& b) {
     double h = 1.0 / n;
-    double omega = 0.8;
+    double omega = 0.9;
     double error = 1.0;
     int k = 0;
     vector<double> new_x(n, 0.);
 
     while (error > 1.0 / pow(n, 3)) {
 
-        vector<double> curr_x = x;
-
         for (int i = 0; i < n; ++i) {
-            new_x[i] = calculate_new_x_relax(i, curr_x, new_x, n, A, omega, b);
+            new_x[i] = calculate_new_x_relax(i, x, new_x, n, A, omega, b);
         }
 
         x = new_x;
@@ -298,12 +258,10 @@ int spusk(int n, vector<double>& x, vector<vector<double>>& A,  vector<double>& 
     vector<double> new_x(n, 0.);
     double error = 1.0;
 
-    while (error > 1.0 / pow(n, 3)) {
-
-        vector<double> curr_x = x;
+    while (error >= 1.0 / pow(n, 3)) {
 
         for (int i = 0; i < n; ++i) {
-            new_x[i] = calculate_new_x_spusk(i, curr_x, n, A, b);
+            new_x[i] = calculate_new_x_spusk(i, x, n, A, b);
         }
 
         x = new_x;
