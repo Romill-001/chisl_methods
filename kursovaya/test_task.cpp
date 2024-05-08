@@ -55,7 +55,7 @@ int main() {
     double a = 0.0;
     double b = 5.0;
     double h = 0.1;
-    std::vector<double> y0 = {1.0 / sqrt(2), 1.0 / sqrt(2)}; // Начальные условия
+    std::vector<double> y0 = {1.0 / sqrt(2), 1.0 / sqrt(2)};
 
     std::vector<std::vector<double>> solution = runge_kutta_4(a, b, y0, h);
 

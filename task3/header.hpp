@@ -144,13 +144,13 @@ void progonka_method(vector<vector<double>> &A, vector<double> &x, int n, vector
     }
 }
 
-double calculate_new_x(int i, vector<double>& x, vector<double>& xn, int n, vector<vector<double>> &A, vector<double> &b) {
+double calculate_new_x(int i, vector<double>& x, int n, vector<vector<double>> &A, vector<double> &b) {
     double h = 1.0 / n;
     double sum = 0.0;
 
     if (i > 0) {
         for (int j = 0; j <= i - 1; ++j) {
-            sum += A[i][j] * xn[j];
+            sum += A[i][j] * x[j];
         }
     }
 
@@ -173,12 +173,12 @@ int Seidel_method(int n, vector<double> &x, vector<vector<double>> &A, vector<do
     while (error > 1.0 / pow(n, 3)) {
 
         for (int i = 0; i < n; ++i) {
-            new_x[i] = calculate_new_x(i, x, new_x, n, A, b);
+            new_x[i] = calculate_new_x(i, new_x, n, A, b);
         }
 
-        x = new_x;
+        error = calculate_error_dec(new_x, A, b);
 
-        error = calculate_error_dec(x, A, b);
+        x = new_x;
 
         k++;
     }
@@ -188,13 +188,13 @@ int Seidel_method(int n, vector<double> &x, vector<vector<double>> &A, vector<do
     }
     return k;
 }
-double calculate_new_x_relax(int i, vector<double>& x,vector<double>& xn, int n, vector<vector<double>> &A, double omega, vector<double> &b) {
+double calculate_new_x_relax(int i, vector<double>& x, int n, vector<vector<double>> &A, double omega, vector<double> &b) {
     
     double sum = 0.0;
 
     if (i > 0) {
         for (int j = 0; j <= i - 1; ++j) {
-            sum += A[i][j] * xn[j];
+            sum += A[i][j] * x[j];
         }
     }
 
@@ -218,12 +218,12 @@ int relax_bottom(int n, vector<double>& x, vector<vector<double>>& A, vector<dou
     while (error > 1.0 / pow(n, 3)) {
 
         for (int i = 0; i < n; ++i) {
-            new_x[i] = calculate_new_x_relax(i, x, new_x, n, A, omega, b);
+            new_x[i] = calculate_new_x_relax(i, new_x, n, A, omega, b);
         }
 
-        x = new_x;
+        error = calculate_error_dec(new_x, A, b);
 
-        error = calculate_error_dec(x, A, b);
+        x = new_x;
 
         k++;
     }
@@ -261,12 +261,12 @@ int spusk(int n, vector<double>& x, vector<vector<double>>& A,  vector<double>& 
     while (error >= 1.0 / pow(n, 3)) {
 
         for (int i = 0; i < n; ++i) {
-            new_x[i] = calculate_new_x_spusk(i, x, n, A, b);
+            new_x[i] = calculate_new_x_spusk(i, new_x, n, A, b);
         }
 
         x = new_x;
 
-        error = calculate_error_dec(x, A, b);
+        error = calculate_error_dec(new_x, A, b);
 
         k++;
     }
