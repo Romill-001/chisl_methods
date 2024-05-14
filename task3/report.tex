@@ -255,7 +255,7 @@ x_i^{k+1}= - \sum\limits_{j=1}^{i-1} \frac{a_{ij}}{a_{ii}}x_j^k - \sum\limits_{j
 
 Запишем формулу (\ref{7}) для нашей системы \eqref{eq:main_sys}:
 \begin{equation}
-    y_i^{k+1}=  -\sum\limits_{j=1}^{i-1}\frac{a_j}{a_i+a_{i+1}+h^2 g_i}y_{i-1}^k \; - \;\sum\limits_{j=i+1}^{n}\frac{a_{j}}{a_i+a_{i+1}+h^2 g_i}y_{i+1}^k\; +\; \frac{f_i h^2}{a_i+a_{i+1}+h^2 g_i},$$$$
+    y_i^{k+1}=  -\sum\limits_{j=1}^{i-1}\frac{a_j}{a_i+a_{i+1}+h^2 g_i}y_j^{k+1} \; - \;\sum\limits_{j=i+1}^{n}\frac{a_{j}}{a_i+a_{i+1}+h^2 g_i}y_j^k\; +\; \frac{f_i h^2}{a_i+a_{i+1}+h^2 g_i},$$$$
     i=\overline{1, n-1};
      \label{8}
 \end{equation}
@@ -323,7 +323,7 @@ $$\max\limits |r_i^k| \leq \varepsilon,$$
 
 Преобразуем формулу \eqref{9} относительно нашей системы:
 \begin{equation}
-    y_i^{k+1}=(1-\omega)y_i^k+\omega  \bigg(-\sum\limits_{j=1}^{i-1}\frac{a_j}{a_i+a_{i+1}+h^2 g_i}y_{i-1}^k \; - \;\sum\limits_{j=i+1}^{n}\frac{a_{j}}{a_i+a_{i+1}+h^2 g_i}y_{i+1}^k\; +\; \frac{f_i h^2}{a_i+a_{i+1}+h^2 g_i}\bigg),$$$$
+    y_i^{k+1}=(1-\omega)y_i^k+\omega  \bigg(-\sum\limits_{j=1}^{i-1}\frac{a_j}{a_i+a_{i+1}+h^2 g_i}y_j^{k+1} \; - \;\sum\limits_{j=i+1}^{n}\frac{a_{j}}{a_i+a_{i+1}+h^2 g_i}y_j^k\; +\; \frac{f_i h^2}{a_i+a_{i+1}+h^2 g_i}\bigg),$$$$
     i=\overline{1, n-1};
     \label{10}
 \end{equation}
