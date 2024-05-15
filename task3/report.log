@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.4.18)  15 MAY 2024 08:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.4.18)  15 MAY 2024 08:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -380,44 +380,49 @@ LaTeX Font Info:    Calculating math sizes for size <14> on input line 4.
 \tf@toc=\write3
 \openout3 = `report.toc'.
 
- [2] [3] [4]
-Overfull \hbox (8.24261pt too wide) in paragraph at lines 227--230
+ [2] [3]
+Overfull \hbox (8.24261pt too wide) in paragraph at lines 226--229
 | \T2A/cmr/m/n/12 Для больших систем вида $\OML/cmm/m/it/12 Ax \OT1/cmr/m/n/12 
 = \OML/cmm/m/it/12 b$ \T2A/cmr/m/n/12 предпочтительнее оказываются итерационные
  методы.
  []
 
+[4]
 
-LaTeX Warning: Command \CYRA invalid in math mode on input line 231.
+LaTeX Warning: Command \CYRA invalid in math mode on input line 230.
 
 Missing character: There is no А in font cmr12!
 
-Overfull \hbox (3.42432pt too wide) in paragraph at lines 238--240
+Overfull \hbox (3.42432pt too wide) in paragraph at lines 237--239
 []\T2A/cmr/m/n/12 Выберем некоторое начальное приближение $\OML/cmm/m/it/12 x[]
  \OT1/cmr/m/n/12 = (\OML/cmm/m/it/12 x[]; x[]; []; x[]\OT1/cmr/m/n/12 )[]$\T2A/
 cmr/m/n/12 . Построим последова-
  []
 
-[5
 
-] [6] [7
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5] [6] [7
 
 ] [8
 
 ]
-Overfull \hbox (4.48033pt too wide) in paragraph at lines 415--417
+Overfull \hbox (4.48033pt too wide) in paragraph at lines 414--416
 []\T2A/cmr/m/n/12 Опишем итерационный метод наискорейшего спуска. Будем двигать
 ся из точки началь-
  []
 
 
-Overfull \hbox (0.88745pt too wide) in paragraph at lines 434--436
+Overfull \hbox (0.88745pt too wide) in paragraph at lines 433--435
 []\T2A/cmr/m/n/12 Метод ($\OT1/cmr/m/n/12 12$\T2A/cmr/m/n/12 ) называют методом
  наискорейшего спуска. По сравнению с методом простой
  []
 
 
-Overfull \hbox (4.6552pt too wide) in paragraph at lines 434--436
+Overfull \hbox (4.6552pt too wide) in paragraph at lines 433--435
 \T2A/cmr/m/n/12 по вычислению параметра $\OML/cmm/m/it/12 ^^\[]:$ \T2A/cmr/m/n/
 12 Вследствие этого происходит адаптация к оптимальной скорости
  []
@@ -425,7 +430,7 @@ Overfull \hbox (4.6552pt too wide) in paragraph at lines 434--436
 [9
 
 ] [10]
-Overfull \hbox (3.44324pt too wide) in paragraph at lines 502--506
+Overfull \hbox (3.44324pt too wide) in paragraph at lines 501--505
 \T2A/cmr/m/n/12 ции при итерационном параметре $\OML/cmm/m/it/12 ! \OT1/cmr/m/n
 /12 = 1\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 86$\T2A/cmr/m/n/12 . Данный метод пок
 азывается наилучшие результа-
@@ -437,14 +442,18 @@ Overfull \hbox (3.44324pt too wide) in paragraph at lines 502--506
 
 ]
 LaTeX Font Info:    Trying to load font information for T2A+cmtt on input line 
-516.
+515.
  (/usr/share/texlive/texmf-dist/tex/latex/cyrillic/t2acmtt.fd
 File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 )
 (./header.hpp [13
 
 ] [14] [15] [16] [17] [18]) (./main.cpp [19]) [20]
-(./report.aux) ) 
+(./report.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
  9503 strings out of 479648
  142547 string characters out of 5886115
@@ -453,24 +462,23 @@ Here is how much of TeX's memory you used:
  481966 words of font info for 58 fonts, out of 8000000 for 9000
  475 hyphenation exceptions out of 8191
  55i,11n,63p,446b,1093s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}</u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-msy8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share
-/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/p
-ublic/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0
-600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/
-texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/pu
-blic/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt10
-95.pfb>
-Output written on report.pdf (20 pages, 324026 bytes).
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}</usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr
+/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/t
+ype1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super
+/sfbx1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/
+share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/ty
+pe1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/
+sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on report.pdf (20 pages, 323442 bytes).
 PDF statistics:
  150 PDF objects out of 1000 (max. 8388607)
  101 compressed objects within 2 object streams
