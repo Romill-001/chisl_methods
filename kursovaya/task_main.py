@@ -1,45 +1,61 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def f(u, M, m):
-    u1, u2, u3, u4 = u
-    R1 = ((u1 + m)**2 + u3**2)**(3/2)
-    R2 = ((u1 - M)**2 + u3**2)**(3/2)
-    f1 = u2
-    f2 = u1 + 2*u4 - M*(u1 - m)/R1 - m*(u1 - M)/R2
-    f3 = u4
-    f4 = u3 - 2*u2 - M*u3/R1 - m*u3/R2
-    return np.array([f1, f2, f3, f4])
+def aren(t, u):
+    x, y, vx, vy = u
+    m = 0.012277471; M = 1 - m
+    Dm = ((x+m)**2+y**2)**(1.5);
+    De = ((x-M)**2+y**2)**(1.5)
+    return np.array([vx, vy,
+    x+2*vy-M*(x+m)/Dm-m*(x-M)/De,
+    y-2*vx-M* y /Dm-m* y /De])
 
-def rk4_step(u, h, M, m):
-    k1 = h * f(u, M, m)
-    k2 = h * f(u + 0.5 * k1, M, m)
-    k3 = h * f(u + 0.5 * k2, M, m)
-    k4 = h * f(u + k3, M, m)
-    return u + (k1 + 2*k2 + 2*k3 + k4) / 6
+aren_init = np.array([0.994, 0, 0, -2.031732629557337])
+aren_tmax = 11.124340337
 
-u0 = np.array([0.994, 0, 0, -2.031732629557337])
-m = 0.012277471
-M = 1 - m
-t0 = 0
-t_end = 20
-h = 0.01  
+def rk4(f, tau, t, u):
+    k1 = f(t, u)
+    k2 = f(t + tau/2, u + tau/2*k1)
+    k3 = f(t + tau/2, u + tau/2*k2)
+    k4 = f(t + tau , u + tau *k3)
+    return u + tau * (k1 + 2*k2 + 2*k3 + k4) / 6
 
-t_values = np.arange(t0, t_end, h)
-u_values = np.zeros((len(t_values), len(u0)))
+def adaptive_stepsize(f, y0, tmax, method, tol, tau=0.1):
+    t = 0; u = y0
+    T = [0]; Y = [y0]
+    failed = 0 # Число неудачных шагов
+    while t < tmax:
+        if t + tau > tmax: tau = tmax - t
+        u1 = method(f, tau, t, u) # Целый шаг
+        u2 = method(f, tau/2, t, u)
+        u2 = method(f, tau/2, t+tau/2, u2) # Два полушага
+        err = np.linalg.norm(u1-u2)/(1-2**-4) # Правило Рунге
+        fac = (tol/err)**(1 / (4+1)) # Подстраиваем tau
+        taunew = tau * min(2, max(0.25, 0.8 * fac))
+        if err < tol: # Ошибка мала, принимаем шаг
+            t += tau; u = u1
+            T.append(t); Y.append(u)
+        else: # Если ошибка велика, повторяем шаг с новым tau
+            failed += 1
+        tau = taunew
+    return np.array(T), np.array(Y)
 
-u = u0
-for i, t in enumerate(t_values):
-    u_values[i] = u
-    u = rk4_step(u, h, M, m)
+T, Y = adaptive_stepsize(aren, aren_init, aren_tmax, rk4, 1e-4)
+x_values = Y[:, 0]
+y_values = Y[:, 1]
 
-x_values = u_values[:, 0]
-y_values = u_values[:, 2]
-
-plt.plot(x_values, y_values)
+# Построение орбиты
+plt.figure(figsize=(8, 6))
+plt.plot(x_values, y_values, label='Орбита планетоида', color='blue')
+plt.scatter([0], [0], color='red', label='Земля')
+plt.scatter([1], [0], color='green', label='Луна')
 plt.xlabel('x')
 plt.ylabel('y')
-plt.title('Решение системы методом Рунге-Кутты 4-го порядка')
+plt.title('Орбита планетоида вокруг Земли - орбита Арентострофа')
+plt.legend()
 plt.grid(True)
+plt.axis('equal')
 plt.savefig('plot_main_task.png')
 plt.show()
+
+
