@@ -21,8 +21,8 @@ def exact_solution(x, e):
     return y1_exact, y2_exact
 
 y1_0 = 1 / np.sqrt(2)  
-y2_0 = 1 / np.sqrt(2)  
-e = 0
+y2_0 = 0  
+e = 2.71828182846
 t0 = 0
 t_end = 5
 h = 0.01
@@ -43,7 +43,7 @@ y1_exact, y2_exact = exact_solution(t_values, e)
 
 plt.plot(t_values, y1_values, label='Численное решение y1')
 plt.plot(t_values, y2_values, label='Численное решение y2')
-plt.plot(t_values, y1_exact, label='Точное решение y1', linestyle='--')
+plt.plot(t_values, y1_exact, label='Точное решение y1', linestyle='--', color='red')
 plt.plot(t_values, y2_exact, label='Точное решение y2', linestyle='--')
 plt.xlabel('x')
 plt.ylabel('y')
